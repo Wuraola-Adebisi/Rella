@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { ArrowUpRight, Plus, Search, CalendarDays, CheckCircle2, Circle, CreditCard, Brain, Inbox, MessageCircle, Clock3, Check, Archive } from 'lucide-react'
 import type { Memory, Task, ViewId } from '../types'
 import type { Bill, CalendarEvent, InboxItem } from '../hooks/useRellaStore'
