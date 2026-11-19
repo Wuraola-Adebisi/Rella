@@ -32,7 +32,7 @@ The product is organised around five actions:
 - Keep all personal records scoped to the authenticated user.
 - Make records editable, exportable, and deletable.
 
-## MVP delivery sequence
+## Current frontend mock\n\nThe initial implementation uses browser local storage behind a small store hook. It supports task creation/completion, memory creation and search, inbox capture and processing, event creation, bill creation/payment status, dashboard metrics, and rule-based assistant retrieval from saved records. Seed records are illustrative. The mock does not provide authentication, cloud sync, cross-device persistence, real notifications, recurring-payment automation, natural-language model reasoning, or external integrations.\n\nThese boundaries are deliberate: the UI and interaction contracts can be evaluated before backend services are introduced. Keep the store API isolated so it can later be replaced with authenticated API calls without coupling components to storage details.\n\n## MVP delivery sequence
 
 ### Foundation
 - Responsive application shell and navigation
