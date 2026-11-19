@@ -257,3 +257,10 @@ button:disabled { cursor: not-allowed; opacity: .45; }
   .priority { display: none; }
   .section-view-header .primary-button { padding: 8px; font-size: 9px; }
 }
+
+.inbox-items-heading { display: flex; align-items: center; justify-content: space-between; width: 100%; padding-bottom: 12px; border-bottom: 1px solid #edf0eb; }
+.inbox-item { display: flex; align-items: flex-start; gap: 10px; width: 100%; padding: 13px 0; border-bottom: 1px solid #f0f2ef; text-align: left; }
+.inbox-item-icon { display: grid; place-items: center; flex: 0 0 29px; width: 29px; height: 29px; border-radius: 8px; color: #69846e; background: #edf3ed; }
+.inbox-item p { flex: 1; margin: 2px 0 0; color: #566159; font-size: 10px; line-height: 1.5; }
+.inbox-item > span { color: #a1aaa3; font-size: 8px; white-space: nowrap; }
+.inbox-empty .primary-button { margin-top: 14px; }
