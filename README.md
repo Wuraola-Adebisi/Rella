@@ -26,7 +26,7 @@ npm run typecheck
 npm run build
 ```
 
-## Stack
+## Current implementation\n\nThe current branch includes a frontend-only workflow mock. Records are persisted in browser local storage so interactions survive refreshes in the same browser. Tasks, memories, inbox captures, calendar events, and bills can be created and updated. Inbox captures can be converted into tasks or memories. Ask Rella uses deterministic local matching against saved records; it is not connected to an LLM or external service. This is intentionally a logic mock, not production persistence or multi-device sync.\n\n## Stack
 
 - React + TypeScript + Vite
 - Tailwind CSS
