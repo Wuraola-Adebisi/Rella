@@ -50,7 +50,7 @@ export default function AssistantView({ tasks, memories, events, bills, inbox, o
     if (!content || busy) return
     setBusy(true)
     const userMessage: ChatMessage = { id: id(), role: 'user', content, createdAt: new Date().toISOString() }
-    const result = runMockAssistant(content, context)
+    const result = runMockAssistant(content, context, messages)
     const assistantMessage: ChatMessage = { id: id(), role: 'assistant', content: result.message, sources: result.sources, action: result.action, actionState: result.action ? 'pending' : undefined, intent: result.intent, createdAt: new Date().toISOString() }
     setMessages(current => [...current, userMessage, assistantMessage])
     setDraft('')
