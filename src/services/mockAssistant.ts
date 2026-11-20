@@ -50,7 +50,7 @@ export function runMockAssistant(rawMessage: string, context: AssistantContext, 
   const memoryMatches = context.memories.filter(item => normalise([item.title, item.detail, item.category, item.person ?? ''].join(' ')).split(' ').some(word => word.length > 2 && q.includes(word)))
   const personMatch = context.memories.filter(item => item.person && q.includes(normalise(item.person)))
   const lastAssistantSources = [...history].reverse().find(item => item.role === 'assistant' && item.sources?.length)?.sources ?? []
-  if (/^(where was it|where is it|which place|tell me more|what did (she|he|they) say|what about that|when did (she|he|they) say)/.test(q) && lastAssistantSources.length) {
+  if (/^(where (was|is) (it|that)|where did (she|he|they) recommend|which place|tell me more|what did (she|he|they) say|what about that|when did (she|he|they) say)/.test(q) && lastAssistantSources.length) {
     return { intent: 'follow_up', message: 'This is the saved context from the previous result. I have not added any details that were not recorded.', sources: lastAssistantSources }
   }
 
@@ -78,8 +78,9 @@ export function runMockAssistant(rawMessage: string, context: AssistantContext, 
 
   if (/^(remember that|save this|keep a note)\b/.test(q)) {
     const detail = message.replace(/^(remember that|save this|keep a note)\s*/i, '').trim()
+    const person = detail.match(/^([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s+(?:recommended|said|told me)/)?.[1] ?? detail.match(/\b(?:from|by|with)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)/)?.[1]
     const title = detail.length > 58 ? `${detail.slice(0, 55)}…` : detail
-    return { intent: 'create_memory', message: 'I can save this in My Memory. Check the wording before saving.', sources: [], action: { type: 'create_memory', title: title || 'New memory', detail, category: 'Note' } }
+    return { intent: 'create_memory', message: 'I can save this in My Memory. Check the wording before saving.', sources: [], action: { type: 'create_memory', title: title || 'New memory', detail, category: /restaurant|food|place|recommend/i.test(detail) ? 'Recommendation' : 'Note', person } }
   }
 
   if (/bill|subscription|payment|renewal|renew/.test(q)) {
