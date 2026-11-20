@@ -62,7 +62,7 @@ export function useRellaStore() {
     const billReminders = store.bills.filter(bill => !bill.paid).map(bill => ({
       id: `bill-${bill.id}`, title: bill.name, detail: `${new Intl.NumberFormat(undefined, { style: 'currency', currency: bill.currency, maximumFractionDigits: 0 }).format(bill.amount)} · ${bill.frequency === 'One-time' ? 'Payment due' : 'Renews'}`, date: dateLabel(bill.dueDate), kind: 'bill' as const, sortDate: bill.dueDate,
     }))
-    return [...taskReminders, ...eventReminders, ...billReminders].sort((a, b) => a.sortDate.localeCompare(b.sortDate)).slice(0, 8).map(({ sortDate: _sortDate, ...item }) => item)
+    return [...taskReminders, ...eventReminders, ...billReminders].sort((a, b) => a.sortDate.localeCompare(b.sortDate)).slice(0, 8).map(item => ({ id: item.id, title: item.title, detail: item.detail, date: item.date, kind: item.kind }))
   }, [store.tasks, store.events, store.bills])
 
   const addTask = (title: string, due = 'No date', category = 'Personal', priority: Task['priority'] = 'Medium') =>
