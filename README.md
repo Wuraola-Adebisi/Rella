@@ -1,16 +1,14 @@
 # Rella
 
-Rella is a personal life management system for keeping plans, responsibilities, recurring payments, and important information organised in one place.
+Rella is a personal life management workspace for keeping responsibilities, plans, recurring payments and important personal context organised in one place.
 
-## Product direction
-
-Rella brings together tasks, calendar events, bills and subscriptions, personal memories, an inbox for quick captures, and an integrated assistant. The core workflow is:
+## Product workflow
 
 **Capture → Understand → Organise → Remember → Retrieve**
 
-The assistant is designed to work with the user's own information through controlled, permission-checked application operations. It should preserve original context, distinguish saved facts from inferences, and ask before consequential actions.
+Rella brings together an Inbox, tasks, calendar, bills and subscriptions, My Memory and a conversational assistant. The product is designed around the connections between these records, not simply storing them in separate lists.
 
-## Getting started
+## Run locally
 
 Requirements: Node.js 20+
 
@@ -19,21 +17,41 @@ npm install
 npm run dev
 ```
 
-Build and type-check:
+Validate the project:
 
 ```bash
 npm run typecheck
 npm run build
 ```
 
-## Current implementation\n\nThe current branch includes a frontend-only workflow mock. Records are persisted in browser local storage so interactions survive refreshes in the same browser. Tasks, memories, inbox captures, calendar events, and bills can be created and updated. Inbox captures can be converted into tasks or memories. Ask Rella uses deterministic local matching against saved records; it is not connected to an LLM or external service. This is intentionally a logic mock, not production persistence or multi-device sync.\n\n## Stack
+## Stakeholder MVP
 
-- React + TypeScript + Vite
-- Tailwind CSS
-- Supabase Auth + PostgreSQL (backend integration phase)
-- PostgreSQL full-text search, with pgvector for semantic retrieval
-- Server-side AI orchestration and scheduled reminder jobs
+This branch contains a client-facing product simulation with:
+- Persistent sample workspace data in browser local storage.
+- Task, memory, calendar event, bill and inbox workflows.
+- Workspace-wide search, data export and resettable sample data.
+- A conversational mock assistant that retrieves saved records and proposes supported actions for explicit confirmation.
+- A responsive interface with conversation history saved in the current browser.
 
-## Project notes
+The backend and AI are deliberately mocked. There is no production authentication, server-side database, cross-device sync, LLM connection, scheduled job, email integration, payment processing or browser push notification. Assistant responses are deterministic and grounded in the current workspace records. The sample profile and seeded records are illustrative.
 
-See [the product foundation](docs/PRODUCT_FOUNDATION.md) for the product principles, application areas, delivery sequence, and technical direction.
+## Architecture
+
+- `src/hooks/useRellaStore.ts`: application state and workflow actions.
+- `src/services/mockDatabase.ts`: isolated persistence and workspace export helpers.
+- `src/services/mockAssistant.ts`: deterministic intent detection, retrieval and action proposal.
+- `src/components/AssistantView.tsx`: conversational interface and action confirmation.
+- `src/components`: product views and reusable interface components.
+
+The service boundary is intentionally replaceable. A future backend can implement the same application operations without coupling persistence directly to the UI.
+
+## Product principles
+
+- Preserve original user wording and context.
+- Never fabricate a saved personal fact.
+- Distinguish retrieved records from suggestions.
+- Confirm changes before executing assistant-proposed actions.
+- Make records exportable and deletable.
+- Be explicit about the limits of simulated capabilities.
+
+See [Product Foundation](docs/PRODUCT_FOUNDATION.md) for product scope and technical direction.
