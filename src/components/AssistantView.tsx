@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { ArrowUp, Brain, CalendarDays, Check, Clock3, CreditCard, MessageCircle, Plus, RotateCcw, Sparkles, UserRound } from 'lucide-react'
-import type { Task } from '../types'
+import type { Memory, Task } from '../types'
 import type { AssistantAction, AssistantContext } from '../services/mockAssistant'
 import { runMockAssistant } from '../services/mockAssistant'
 import type { Bill, CalendarEvent, InboxItem } from '../hooks/useRellaStore'
