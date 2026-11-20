@@ -2,66 +2,61 @@
 
 ## Product definition
 
-Rella is a personal life management system. It gives people one place to keep track of responsibilities, plans, recurring payments, important details, and the context that connects them.
+Rella is a personal life management system. It gives people one place to keep track of responsibilities, plans, recurring payments, important details and the context that connects them.
 
-The product is organised around five actions:
-
-1. **Capture** information before it gets lost.
-2. **Understand** what the information represents.
-3. **Organise** it into a task, event, reminder, payment, or memory.
-4. **Remember** the context and relationships around it.
-5. **Retrieve** it in natural language when it becomes useful.
+The core workflow is **Capture → Understand → Organise → Remember → Retrieve**.
 
 ## Application areas
 
-- **Overview:** today's priorities, upcoming commitments, payments, quick capture, and recently saved information.
-- **Calendar:** appointments, deadlines, reminders, renewals, and milestones in one timeline.
-- **Tasks:** actionable work with due dates, priorities, recurrence, and completion history.
-- **Bills & subscriptions:** recurring costs, next due dates, renewal terms, cancellation deadlines, and reminders.
-- **My Memory:** people, places, recommendations, preferences, notes, and plans, with their original context preserved.
+- **Overview:** priorities, upcoming commitments, payments, quick capture and recently saved information.
+- **Calendar:** appointments, deadlines, reminders, renewals and milestones.
+- **Tasks:** actionable work with due dates, priorities and completion status.
+- **Bills & subscriptions:** recurring costs, due dates, renewal terms and payment status.
+- **My Memory:** people, places, recommendations, preferences, notes and plans, preserving original context.
 - **Inbox:** unprocessed captures waiting to be organised.
-- **Ask Rella:** an assistant that can retrieve information and perform supported actions through controlled application operations.
+- **Ask Rella:** contextual retrieval and supported actions through controlled application operations.
+
+## Stakeholder MVP scope
+
+The current branch is a client-facing simulation intended to test the product workflow and user experience before production infrastructure is introduced.
+
+### Included
+- Persistent browser-based workspace state.
+- Task creation and completion.
+- Memory creation and search.
+- Inbox capture and processing into tasks or memories.
+- Calendar event creation and upcoming event views.
+- Bill and subscription tracking with paid/unpaid status.
+- Workspace-wide search, data export and sample-data reset.
+- Conversational mock assistant with deterministic retrieval, conversation history and confirmed task/memory/event actions.
+- Responsive application layout.
+
+### Deliberately simulated
+- Authentication and user identity.
+- Backend database and cloud persistence.
+- AI reasoning and natural-language understanding.
+- Scheduled reminders, browser push and email notifications.
+- Multi-device sync, integrations and payment processing.
+
+The assistant is deterministic, not an LLM. It only retrieves the records supplied by the local workspace and only executes explicitly supported operations after user confirmation. It must not claim that unsupported actions have occurred.
 
 ## Product principles
 
-- Preserve the user's original words alongside any structured interpretation.
-- Keep saved facts distinct from inferred context.
+- Preserve the user's original words alongside structured interpretations.
+- Keep saved facts distinct from suggestions and inferences.
 - Never invent a personal memory or claim an action was completed when it was not.
 - Ask for missing information when it materially affects an action.
-- Require confirmation for destructive or consequential changes.
-- Keep all personal records scoped to the authenticated user.
-- Make records editable, exportable, and deletable.
+- Require confirmation for consequential changes.
+- Keep records exportable and deletable.
+- Clearly label simulated capabilities during stakeholder testing.
 
-## Current frontend mock\n\nThe initial implementation uses browser local storage behind a small store hook. It supports task creation/completion, memory creation and search, inbox capture and processing, event creation, bill creation/payment status, dashboard metrics, and rule-based assistant retrieval from saved records. Seed records are illustrative. The mock does not provide authentication, cloud sync, cross-device persistence, real notifications, recurring-payment automation, natural-language model reasoning, or external integrations.\n\nThese boundaries are deliberate: the UI and interaction contracts can be evaluated before backend services are introduced. Keep the store API isolated so it can later be replaced with authenticated API calls without coupling components to storage details.\n\n## MVP delivery sequence
+## Future production architecture
 
-### Foundation
-- Responsive application shell and navigation
-- Authentication and account settings
-- Database schema and user-scoped data access
-- Shared form, dialog, empty-state, and notification patterns
+- React, TypeScript, Vite and Tailwind CSS.
+- Supabase Auth and PostgreSQL with row-level security.
+- PostgreSQL full-text search first; semantic retrieval only where it adds value.
+- Server-side AI orchestration with validated, user-scoped tool calls.
+- Scheduled server-side jobs for reminders.
+- Monitoring, audit history and privacy controls.
 
-### Personal organisation
-- Inbox capture and processing
-- Tasks and reminders
-- Calendar and events
-- Bills and subscriptions
-- My Memory with people and relationship links
-- Search and filters
-
-### Assistant
-- Natural-language retrieval
-- Structured extraction from manual captures
-- Controlled task, event, reminder, memory, and payment operations
-- Confirmation and action history
-- Weekly review
-
-## Technical direction
-
-- React, TypeScript, Vite, Tailwind CSS
-- Supabase Auth and PostgreSQL
-- PostgreSQL full-text search first; pgvector for semantic retrieval where useful
-- Server-side AI orchestration with validated tool calls
-- Scheduled server-side jobs for reminders
-- Vercel deployment and Sentry error monitoring
-
-The assistant must not have unrestricted database access. It should call a small set of authenticated backend operations, each with validation, ownership checks, and an auditable result.
+The assistant must not have unrestricted database access. It should call a small set of authenticated backend operations, each with validation, ownership checks and an auditable result.
