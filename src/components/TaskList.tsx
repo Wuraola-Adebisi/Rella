@@ -1,0 +1,9 @@
+import { useState } from 'react'
+import { Check, Circle, MoreHorizontal, Plus } from 'lucide-react'
+import type { Task } from '../types'
+
+export default function TaskList({ tasks, onToggle, onAdd }: { tasks: Task[]; onToggle: (id: string) => void; onAdd: () => void }) {
+  const [filter, setFilter] = useState<'All' | 'Open' | 'Done'>('All')
+  const visible = tasks.filter(task => filter === 'All' || (filter === 'Done' ? task.completed : !task.completed))
+  return <section className="panel task-panel"><div className="panel-heading"><div><span className="section-kicker">KEEP THINGS MOVING</span><h2>Your tasks <span className="count-pill">{tasks.filter(t => !t.completed).length}</span></h2></div><button className="text-action" onClick={onAdd}><Plus size={15} /> Add task</button></div><div className="task-filters">{(['All', 'Open', 'Done'] as const).map(item => <button key={item} className={filter === item ? 'selected' : ''} onClick={() => setFilter(item)}>{item}</button>)}</div><div className="task-list">{visible.map(task => <div className={`task-row ${task.completed ? 'task-complete' : ''}`} key={task.id}><button className="task-check" onClick={() => onToggle(task.id)} aria-label={task.completed ? 'Mark incomplete' : 'Mark complete'}>{task.completed ? <span className="checked"><Check size={12} /></span> : <Circle size={19} strokeWidth={1.5} />}</button><div className="task-info"><strong>{task.title}</strong><div className="task-meta"><span>{task.category}</span><i /> <span>{task.due}</span></div></div><span className={`priority priority-${task.priority.toLowerCase()}`}>{task.priority}</span><button className="subtle-icon" aria-label="More task options"><MoreHorizontal size={18} /></button></div>)}</div><button className="panel-footer-link" onClick={() => window.dispatchEvent(new CustomEvent('rella:navigate', { detail: 'tasks' }))}>View all tasks <span>→</span></button></section>
+}
