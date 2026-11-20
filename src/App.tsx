@@ -8,13 +8,20 @@ import WorkspaceSearch from './components/WorkspaceSearch'
 import { useRellaStore } from './hooks/useRellaStore'
 import type { ViewId } from './types'
 
-type WorkspacePreferences = { displayName: string; workspaceName: string; defaultCurrency: string }\nconst PREFERENCES_KEY = 'rella.preferences.v1'\nconst defaultPreferences: WorkspacePreferences = { displayName: 'Alex Morgan', workspaceName: 'Personal space', defaultCurrency: 'NGN' }\nconst readPreferences = (): WorkspacePreferences => { try { return { ...defaultPreferences, ...JSON.parse(window.localStorage.getItem(PREFERENCES_KEY) || '{}') } } catch { return defaultPreferences } }\n\nconst subtitles: Record<ViewId, string> = {
+type WorkspacePreferences = { displayName: string; workspaceName: string; defaultCurrency: string }
+const PREFERENCES_KEY = 'rella.preferences.v1'
+const defaultPreferences: WorkspacePreferences = { displayName: 'Alex Morgan', workspaceName: 'Personal space', defaultCurrency: 'NGN' }
+const readPreferences = (): WorkspacePreferences => { try { return { ...defaultPreferences, ...JSON.parse(window.localStorage.getItem(PREFERENCES_KEY) || '{}') } } catch { return defaultPreferences } }
+
+const subtitles: Record<ViewId, string> = {
   overview: 'A little more clarity for your day.', calendar: 'Your time, plans and commitments.', tasks: 'The things you want to get done.', bills: 'Recurring payments, without the surprises.', memory: 'Keep the details that matter close.', inbox: 'Everything you have not sorted yet.', assistant: 'A second mind for the details of everyday life.',
 }
 
 export default function App() {
   const [activeView, setActiveView] = useState<ViewId>('overview')
-  const store = useRellaStore()\n  const [preferences, setPreferences] = useState<WorkspacePreferences>(readPreferences)\n  const [preferenceDraft, setPreferenceDraft] = useState<WorkspacePreferences>(preferences)
+  const store = useRellaStore()
+  const [preferences, setPreferences] = useState<WorkspacePreferences>(readPreferences)
+  const [preferenceDraft, setPreferenceDraft] = useState<WorkspacePreferences>(preferences)
   const [modalOpen, setModalOpen] = useState(false)
   const [newItem, setNewItem] = useState('')
   const [toast, setToast] = useState('')
