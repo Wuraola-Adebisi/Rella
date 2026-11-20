@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { initialTasks, memories as starterMemories, reminders as starterReminders } from '../data'
 import type { Memory, Reminder, Task } from '../types'
+import { readMockState, writeMockState, removeMockState, downloadWorkspace } from '../services/mockDatabase'
 
 export type CalendarEvent = { id: string; title: string; date: string; time: string; location: string; notes: string }
 export type Bill = { id: string; name: string; amount: number; currency: string; dueDate: string; frequency: 'One-time' | 'Weekly' | 'Monthly' | 'Yearly'; category: string; paid: boolean }
@@ -21,16 +22,13 @@ const seed: Store = {
   inbox: [],
   reminders: starterReminders,
 }
-const STORAGE_KEY = 'rella.mock-store.v1'
+const STORAGE_KEY = 'workspace'
 
 export function useRellaStore() {
   const [store, setStore] = useState<Store>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY)
-      return saved ? { ...seed, ...JSON.parse(saved) } : seed
-    } catch { return seed }
+    return readMockState<Store>(STORAGE_KEY, seed)
   })
-  useEffect(() => { localStorage.setItem(STORAGE_KEY, JSON.stringify(store)) }, [store])
+  useEffect(() => { writeMockState(STORAGE_KEY, store) }, [store])
 
   const addTask = (title: string, due = 'No date', category = 'Personal', priority: Task['priority'] = 'Medium') =>
     setStore(s => ({ ...s, tasks: [{ id: crypto.randomUUID(), title, due, category, priority, completed: false }, ...s.tasks] }))
@@ -48,5 +46,13 @@ export function useRellaStore() {
     if (destination === 'task') return { ...s, inbox, tasks: [{ id: crypto.randomUUID(), title: item.text, due: 'No date', category: 'Personal', priority: 'Medium', completed: false }, ...s.tasks] }
     return { ...s, inbox, memories: [{ id: crypto.randomUUID(), title: item.text.slice(0, 60), detail: item.text, category: 'Note', date: new Date().toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) }, ...s.memories] }
   })
-  return { ...store, addTask, toggleTask, addMemory, addEvent, addBill, toggleBillPaid, capture, processInbox }
+  const removeTask = (id: string) => setStore(s => ({ ...s, tasks: s.tasks.filter(item => item.id !== id) }))
+  const updateTask = (id: string, patch: Partial<Omit<Task, 'id'>>) => setStore(s => ({ ...s, tasks: s.tasks.map(item => item.id === id ? { ...item, ...patch } : item) }))
+  const removeMemory = (id: string) => setStore(s => ({ ...s, memories: s.memories.filter(item => item.id !== id) }))
+  const updateMemory = (id: string, patch: Partial<Omit<Memory, 'id'>>) => setStore(s => ({ ...s, memories: s.memories.map(item => item.id === id ? { ...item, ...patch } : item) }))
+  const removeEvent = (id: string) => setStore(s => ({ ...s, events: s.events.filter(item => item.id !== id) }))
+  const removeBill = (id: string) => setStore(s => ({ ...s, bills: s.bills.filter(item => item.id !== id) }))
+  const resetDemoData = () => { removeMockState(STORAGE_KEY); setStore(seed) }
+  const exportData = () => downloadWorkspace('rella-workspace.json', store)
+  return { ...store, addTask, toggleTask, addMemory, addEvent, addBill, toggleBillPaid, capture, processInbox, removeTask, updateTask, removeMemory, updateMemory, removeEvent, removeBill, resetDemoData, exportData }
 }
