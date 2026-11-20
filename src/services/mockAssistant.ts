@@ -50,6 +50,17 @@ export function runMockAssistant(rawMessage: string, context: AssistantContext):
   const memoryMatches = context.memories.filter(item => normalise([item.title, item.detail, item.category, item.person ?? ''].join(' ')).split(' ').some(word => word.length > 2 && q.includes(word)))
   const personMatch = context.memories.filter(item => item.person && q.includes(normalise(item.person)))
 
+  if (/^(schedule|book)\\b/.test(q) || /^(add|create) (a )?(calendar )?event\\b/.test(q)) {
+    const isoMatch = message.match(/\\b(20\\d{2}-\\d{2}-\\d{2})\\b/)
+    const relativeDate = q.includes('tomorrow') || q.includes('today')
+    if (!isoMatch && !relativeDate) return { intent: 'create_event', message: 'What date should I put this on? I need a specific date before adding it to your calendar.', sources: [] }
+    const date = isoMatch?.[1] ?? (() => { const value = new Date(); if (q.includes('tomorrow')) value.setDate(value.getDate() + 1); return value.toISOString().slice(0, 10) })()
+    const clockMatch = message.match(/\\b(\\d{1,2})(?::(\\d{2}))?\\s*(am|pm)\\b/i)
+    const twentyFourHour = message.match(/\\b([01]\\d|2[0-3]):([0-5]\\d)\\b/)
+    const time = clockMatch ? (() => { let hour = Number(clockMatch[1]) % 12; if (clockMatch[3].toLowerCase() === 'pm') hour += 12; return String(hour).padStart(2, '0') + ':' + (clockMatch[2] ?? '00') })() : (twentyFourHour?.[0] ?? '09:00')
+    const title = message.replace(/^(please\\s+)?(schedule|book|add|create)\\s+(a\\s+)?(calendar\\s+)?(event|meeting)?\\s*(called|for|to)?\\s*/i, '').replace(/\\b(today|tomorrow)\\b.*$/i, '').replace(/\\bon\\s+20\\d{2}-\\d{2}-\\d{2}.*$/i, '').trim() || 'New event'
+    return { intent: 'create_event', message: 'I can add this to your calendar. Review the date and time before saving.', sources: [], action: { type: 'create_event', title, date, time, location: '', notes: '' } }
+  }
   if (/^(add|create|make|remind me to|remember to)\b/.test(q) || /\b(add a task|create a task|new task)\b/.test(q)) {
     const title = message.replace(/^(please\s+)?(add|create|make)\s+(a\s+)?(task\s+to\s+)?/i, '').replace(/^(remind me to|remember to)\s+/i, '').trim()
     if (title.length < 3) return { intent: 'create_task', message: 'What should I put on your task list?', sources: [] }
