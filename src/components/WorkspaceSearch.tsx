@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Search, X, CheckSquare, Brain, CalendarDays, CreditCard, Inbox } from 'lucide-react'
 import type { ViewId } from '../types'
-import type { Task } from '../types'
+import type { Task, Memory } from '../types'
 import type { Bill, CalendarEvent, InboxItem } from '../hooks/useRellaStore'
 
 type Props = { tasks: Task[]; memories: Memory[]; events: CalendarEvent[]; bills: Bill[]; inbox: InboxItem[]; onNavigate: (view: ViewId) => void; onClose: () => void }
