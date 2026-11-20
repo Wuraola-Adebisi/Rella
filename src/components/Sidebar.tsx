@@ -29,7 +29,7 @@ export default function Sidebar({ activeView, onNavigate, onAdd, onSettings, inb
       <div className="sidebar-bottom">
         <div className="sidebar-tip"><div className="tip-icon"><Brain size={16} /></div><strong>A little less to remember.</strong><p>Save the details. Rella will help you find them when you need them.</p><button onClick={() => onNavigate('memory')}>Explore My Memory <span>→</span></button></div>
         <button className="nav-item settings-item" onClick={onSettings}><Settings size={18} strokeWidth={1.8} /><span>Settings</span></button>
-        <button className="profile-button" onClick={onSettings}><span className="profile-avatar">{displayName.split(/\\s+/).map(part => part[0]).join("").slice(0,2).toUpperCase()}</span><span className="profile-copy"><strong>{displayName}</strong><small>Personal account</small></span><MoreDots /></button>
+        <button className="profile-button" onClick={onSettings}><span className="profile-avatar">{displayName.split(' ').filter(Boolean).map(part => part[0]).join('').slice(0,2).toUpperCase()}</span><span className="profile-copy"><strong>{displayName}</strong><small>Personal account</small></span><MoreDots /></button>
       </div>
     </aside>
   )
