@@ -6,7 +6,7 @@ import QuickCapture from './QuickCapture'
 import AssistantView from './AssistantView'
 
 type Props = {
-  view: ViewId; tasks: Task[]; memories: Memory[]; capturedItems: InboxItem[]; events: CalendarEvent[]; bills: Bill[]
+  defaultCurrency: string; view: ViewId; tasks: Task[]; memories: Memory[]; capturedItems: InboxItem[]; events: CalendarEvent[]; bills: Bill[]
   onToggleTask: (id: string) => void; onToggleBillPaid: (id: string) => void
   onProcessInbox: (id: string, destination: 'task' | 'memory') => void
   onAdd: () => void; onCapture: (value: string) => void
