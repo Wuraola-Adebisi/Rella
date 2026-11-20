@@ -1,9 +1,9 @@
-const STORAGE_PREFIX = 'rella.mock.'
+const STORAGE_PREFIX = ''
 
 export function readMockState<T>(key: string, fallback: T): T {
   try {
     const raw = window.localStorage.getItem(`${STORAGE_PREFIX}${key}`)
-    return raw ? { ...fallback as object, ...JSON.parse(raw) as object } as T : fallback
+    return raw ? Object.assign({}, fallback, JSON.parse(raw) as Partial<T>) as T : fallback
   } catch {
     return fallback
   }
