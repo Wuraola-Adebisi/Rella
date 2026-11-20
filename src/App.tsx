@@ -8,7 +8,7 @@ import WorkspaceSearch from './components/WorkspaceSearch'
 import { useRellaStore } from './hooks/useRellaStore'
 import type { ViewId } from './types'
 
-type WorkspacePreferences = { displayName: string; workspaceName: string; defaultCurrency: string }\nconst PREFERENCES_KEY = 'rella.preferences.v1'\nconst defaultPreferences: WorkspacePreferences = { displayName: 'Your name', workspaceName: 'Personal space', defaultCurrency: 'NGN' }\nconst readPreferences = (): WorkspacePreferences => { try { return { ...defaultPreferences, ...JSON.parse(window.localStorage.getItem(PREFERENCES_KEY) || '{}') } } catch { return defaultPreferences } }\n\nconst subtitles: Record<ViewId, string> = {
+type WorkspacePreferences = { displayName: string; workspaceName: string; defaultCurrency: string }\nconst PREFERENCES_KEY = 'rella.preferences.v1'\nconst defaultPreferences: WorkspacePreferences = { displayName: 'Alex Morgan', workspaceName: 'Personal space', defaultCurrency: 'NGN' }\nconst readPreferences = (): WorkspacePreferences => { try { return { ...defaultPreferences, ...JSON.parse(window.localStorage.getItem(PREFERENCES_KEY) || '{}') } } catch { return defaultPreferences } }\n\nconst subtitles: Record<ViewId, string> = {
   overview: 'A little more clarity for your day.', calendar: 'Your time, plans and commitments.', tasks: 'The things you want to get done.', bills: 'Recurring payments, without the surprises.', memory: 'Keep the details that matter close.', inbox: 'Everything you have not sorted yet.', assistant: 'A second mind for the details of everyday life.',
 }
 
