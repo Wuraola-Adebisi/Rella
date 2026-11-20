@@ -22,7 +22,7 @@ const seed: Store = {
   inbox: [],
   reminders: starterReminders,
 }
-const STORAGE_KEY = 'workspace'
+const STORAGE_KEY = 'rella.mock-store.v1'
 
 export function useRellaStore() {
   const [store, setStore] = useState<Store>(() => {
