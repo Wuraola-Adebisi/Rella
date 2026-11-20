@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Plus, Search, CalendarDays, CheckCircle2, Circle, CreditCard, Inbox, Check, Archive, Pencil, Trash2, RotateCcw, ChevronLeft, ChevronRight, X } from 'lucide-react'
 import type { Memory, Task, ViewId } from '../types'
 import type { Bill, CalendarEvent, InboxItem } from '../hooks/useRellaStore'
@@ -39,6 +39,7 @@ export default function SectionView({ defaultCurrency, view, tasks, memories, ca
   const [eventForm, setEventForm] = useState({ title: '', date: today, time: '09:00', location: '', notes: '' })
   const [billForm, setBillForm] = useState({ name: '', amount: '', currency: defaultCurrency, dueDate: today, frequency: 'Monthly' as Bill['frequency'], category: 'Utilities' })
   const [memoryForm, setMemoryForm] = useState({ title: '', detail: '', category: 'Note', person: '' })
+  useEffect(() => { setBillForm(current => current.name.trim() || current.amount ? current : { ...current, currency: defaultCurrency }) }, [defaultCurrency])
   const page = copy[view]
   const filteredMemories = memories.filter(item => `${item.title} ${item.detail} ${item.category} ${item.person ?? ''}`.toLowerCase().includes(query.toLowerCase()))
   const monthEvents = [...events].filter(e => e.date.slice(0, 7) === calendarMonth).sort((a,b) => `${a.date}T${a.time}`.localeCompare(`${b.date}T${b.time}`))
