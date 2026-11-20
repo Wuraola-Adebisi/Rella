@@ -40,7 +40,7 @@ const extractDue = (text: string) => {
   return match?.[1] ?? 'No date'
 }
 
-export function runMockAssistant(rawMessage: string, context: AssistantContext): AssistantResult {
+export function runMockAssistant(rawMessage: string, context: AssistantContext, history: { role: 'user' | 'assistant'; sources?: { type: string; title: string; detail: string }[] }[] = []): AssistantResult {
   const message = rawMessage.trim()
   const q = normalise(message)
   const today = new Date().toISOString().slice(0, 10)
@@ -49,6 +49,10 @@ export function runMockAssistant(rawMessage: string, context: AssistantContext):
   const upcomingEvents = context.events.filter(item => item.date >= today).sort((a, b) => a.date.localeCompare(b.date))
   const memoryMatches = context.memories.filter(item => normalise([item.title, item.detail, item.category, item.person ?? ''].join(' ')).split(' ').some(word => word.length > 2 && q.includes(word)))
   const personMatch = context.memories.filter(item => item.person && q.includes(normalise(item.person)))
+  const lastAssistantSources = [...history].reverse().find(item => item.role === 'assistant' && item.sources?.length)?.sources ?? []
+  if (/^(where was it|where is it|which place|tell me more|what did (she|he|they) say|what about that|when did (she|he|they) say)/.test(q) && lastAssistantSources.length) {
+    return { intent: 'follow_up', message: 'This is the saved context from the previous result. I have not added any details that were not recorded.', sources: lastAssistantSources }
+  }
 
   if (/^(schedule|book)\b/.test(q) || /^(add|create) (a )?(calendar )?event\b/.test(q)) {
     const isoMatch = message.match(/\b(20\d{2}-\d{2}-\d{2})\b/)
