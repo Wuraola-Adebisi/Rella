@@ -16,7 +16,7 @@ export default function LandingPage({ onEnter }: { onEnter: () => void }) {
 
     <section className="landing-hero" id="top">
       <div className="landing-copy">
-        <span className="landing-eyebrow"><i/> KEEP YOUR EVERYDAY LIFE ORGANised</span>
+        <span className="landing-eyebrow"><i/> KEEP YOUR EVERYDAY LIFE ORGANISED</span>
         <h1>Keep your plans,<br/>tasks and important details <em>in one place.</em></h1>
         <p>Rella helps you keep track of tasks, appointments, bills and useful information, so you know what needs doing and where to find what matters.</p>
         <div className="landing-actions"><button className="landing-primary" onClick={onEnter}>Open your space <ArrowRight size={17}/></button><a href="#how-it-works">See how it works <span>↓</span></a></div>
@@ -95,6 +95,6 @@ export default function LandingPage({ onEnter }: { onEnter: () => void }) {
 
     <section className="landing-closer"><span className="landing-eyebrow">GET STARTED WITH RELLA</span><h2>Put your plans and important details<br/><em>in one place.</em></h2><p>Start with a task, an appointment or a note. Add more whenever you need to.</p><button className="landing-primary" onClick={onEnter}>Open Rella <ArrowRight size={17}/></button><small>Your personal space for everyday life.</small></section>
 
-    <footer className="landing-footer"><a className="landing-brand" href="#top"><span className="landing-mark">r</span> rella</a><div className="footer-links"><a href="#how-it-works">How it works</a><a href="#what-you-can-manage">What you can manage</a><a href="#ask-rella">Ask Rella</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><button onClick={onEnter}>Open your space</button></div><span>© 2026 Rella</span></footer>
+    <footer className="landing-footer"><a className="landing-brand" href="#top"><span className="landing-mark">r</span> rella</a><div className="footer-links"><a href="#how-it-works">How it works</a><a href="#what-you-can-manage">What you can manage</a><a href="#ask-rella">Ask Rella</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="mailto:hello@userella.com">Contact</a><button onClick={onEnter}>Open your space</button></div><span>© 2026 Rella</span></footer>
   </main>
 }
