@@ -14,7 +14,7 @@ export const reminders: Reminder[] = [
 ]
 
 export const memories: Memory[] = [
-  { id: 'm1', title: 'Nok — seafood pasta', detail: 'Sarah recommended trying the seafood pasta. She said to go in the evening.', category: 'Recommendation', date: 'Nov 18', person: 'Sarah' },
+  { id: 'm1', title: 'Nok: seafood pasta', detail: 'Sarah recommended trying the seafood pasta. She said to go in the evening.', category: 'Recommendation', date: 'Nov 18', person: 'Sarah' },
   { id: 'm2', title: 'December family trip', detail: 'Need to discuss dates and accommodation with my sister.', category: 'Plan', date: 'Nov 16', person: 'My sister' },
   { id: 'm3', title: 'Preferred work hours', detail: 'Most focused between 9:00 am and 1:00 pm.', category: 'Preference', date: 'Nov 12' },
 ]
