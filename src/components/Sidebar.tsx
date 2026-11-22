@@ -1,10 +1,9 @@
-import { CalendarDays, CheckSquare, CreditCard, Inbox, LayoutDashboard, Brain, MessageCircle, Plus, Settings, ChevronDown } from 'lucide-react'
+import { CalendarDays, CheckSquare, CreditCard, Inbox, Brain, MessageCircle, Plus, Settings, ChevronDown } from 'lucide-react'
 import type { ViewId } from '../types'
 
 type SidebarProps = { activeView: ViewId; onNavigate: (view: ViewId) => void; onAdd: () => void; onSettings: () => void; inboxCount: number }
 
-const primaryItems: { id: ViewId; label: string; icon: typeof LayoutDashboard }[] = [
-  { id: 'overview', label: 'Overview', icon: LayoutDashboard },
+const primaryItems: { id: ViewId; label: string; icon: typeof CheckSquare }[] = [
   { id: 'calendar', label: 'Calendar', icon: CalendarDays },
   { id: 'tasks', label: 'Tasks', icon: CheckSquare },
   { id: 'bills', label: 'Bills & subscriptions', icon: CreditCard },
@@ -15,7 +14,7 @@ const primaryItems: { id: ViewId; label: string; icon: typeof LayoutDashboard }[
 export default function Sidebar({ activeView, onNavigate, onAdd, onSettings, inboxCount }: SidebarProps) {
   return (
     <aside className="sidebar">
-      <button className="brand-lockup" onClick={() => onNavigate('overview')} aria-label="Rella home">
+      <button className="brand-lockup" onClick={() => onNavigate('tasks')} aria-label="Rella home">
         <span className="brand-mark">r</span><span className="brand-name">rella</span>
       </button>
       <button className="workspace-switcher" onClick={onSettings}><span className="workspace-avatar">W</span><span className="workspace-copy"><strong>Personal space</strong><small>Your life, in one place</small></span><ChevronDown size={15} /></button>
