@@ -1,7 +1,7 @@
-import { CalendarDays, CheckSquare, CreditCard, Inbox, Brain, MessageCircle, Plus, Settings, ChevronDown } from 'lucide-react'
+import { CalendarDays, CheckSquare, CreditCard, Inbox, Brain, MessageCircle, Plus, Settings, ChevronDown, House } from 'lucide-react'
 import type { ViewId } from '../types'
 
-type SidebarProps = { activeView: ViewId; onNavigate: (view: ViewId) => void; onAdd: () => void; onSettings: () => void; inboxCount: number }
+type SidebarProps = { activeView: ViewId; onNavigate: (view: ViewId) => void; onAdd: () => void; onSettings: () => void; onHome: () => void; inboxCount: number }
 
 const primaryItems: { id: ViewId; label: string; icon: typeof CheckSquare }[] = [
   { id: 'calendar', label: 'Calendar', icon: CalendarDays },
@@ -11,7 +11,7 @@ const primaryItems: { id: ViewId; label: string; icon: typeof CheckSquare }[] = 
   { id: 'inbox', label: 'Inbox', icon: Inbox },
 ]
 
-export default function Sidebar({ activeView, onNavigate, onAdd, onSettings, inboxCount }: SidebarProps) {
+export default function Sidebar({ activeView, onNavigate, onAdd, onSettings, onHome, inboxCount }: SidebarProps) {
   return (
     <aside className="sidebar">
       <button className="brand-lockup" onClick={() => onNavigate('tasks')} aria-label="Rella home">
@@ -28,6 +28,8 @@ export default function Sidebar({ activeView, onNavigate, onAdd, onSettings, inb
       <div className="sidebar-bottom">
         <div className="sidebar-tip"><div className="tip-icon"><Brain size={16} /></div><strong>A little less to remember.</strong><p>Save the details. Rella will help you find them when you need them.</p><button onClick={() => onNavigate('memory')}>Explore My Memory <span>→</span></button></div>
         <button className="nav-item settings-item" onClick={onSettings}><Settings size={18} strokeWidth={1.8} /><span>Settings</span></button>
+        <button className="nav-item website-home-item" onClick={onHome}><House size={18} strokeWidth={1.8} /><span>Back to Rella homepage</span></button>
+        <div className="sidebar-legal-links"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div>
         <button className="profile-button" onClick={onSettings}><span className="profile-avatar">WA</span><span className="profile-copy"><strong>Wuraola Adebisi</strong><small>Personal account</small></span><MoreDots /></button>
       </div>
     </aside>
