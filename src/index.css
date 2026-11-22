@@ -793,3 +793,11 @@ h1, h2, h3, p { margin: 0; }
  .landing-closer > p { font-size:15px; }
  .footer-links { flex-wrap:wrap; gap:12px 18px; }
 }
+
+/* Workspace access to the public site and legal information. */
+.website-home-item { margin-top: 6px; }
+.sidebar-legal-links { display:flex; gap:16px; padding:8px 14px 4px 48px; }
+.sidebar-legal-links a, .landing-legal-links a { color:var(--muted); font-size:12px; text-decoration:none; }
+.sidebar-legal-links a:hover, .landing-legal-links a:hover { color:var(--brand-dark); }
+.landing-legal-links { display:flex; align-items:center; gap:18px; }
+@media (max-width:600px) { .landing-legal-links { gap:14px; } }

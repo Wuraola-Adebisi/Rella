@@ -82,6 +82,6 @@ export default function LandingPage({ onEnter }: { onEnter: () => void }) {
       <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=85" alt="A calm, light-filled workspace" loading="lazy"/>
     </section>
     <section className="landing-closer"><span className="landing-eyebrow">A LITTLE MORE ROOM FOR YOU</span><h2>Life has enough tabs open.<br/><em>Let Rella keep track of the details.</em></h2><p>Bring your plans, responsibilities and important notes into one place.</p><button className="landing-primary" onClick={onEnter}>Step inside Rella <ArrowRight size={17}/></button><small>Start with one thing. Add the rest as life happens.</small></section>
-    <footer className="landing-footer"><a className="landing-brand" href="#top"><span className="landing-mark">r</span> rella</a><div className="footer-links"><a href="#how-it-works">How it works</a><a href="#your-life">What you can keep</a><a href="#ask-rella">Ask Rella</a><button onClick={onEnter}>Open your space</button></div><span>© 2026 Rella</span></footer>
+    <footer className="landing-footer"><a className="landing-brand" href="#top"><span className="landing-mark">r</span> rella</a><div className="footer-links"><a href="#how-it-works">How it works</a><a href="#your-life">What you can keep</a><a href="#ask-rella">Ask Rella</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><button onClick={onEnter}>Open your space</button></div><span>© 2026 Rella</span></footer>
   </main>
 }
