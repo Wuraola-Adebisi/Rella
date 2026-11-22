@@ -7,7 +7,6 @@ export default function LandingPage({ onEnter }: { onEnter: () => void }) {
       <nav aria-label="Main navigation"><a href="#how-it-works">How it works</a><a href="#your-life">What you can keep</a><a href="#ask-rella">Ask Rella</a></nav>
       <button className="landing-nav-cta" onClick={onEnter}>Open Rella <ArrowUpRight size={16}/></button>
     </header>
-
     <section className="landing-hero" id="top">
       <div className="landing-copy">
         <span className="landing-eyebrow"><i/> A CALMER WAY TO KEEP TRACK</span>
@@ -16,7 +15,6 @@ export default function LandingPage({ onEnter }: { onEnter: () => void }) {
         <div className="landing-actions"><button className="landing-primary" onClick={onEnter}>Get started <ArrowRight size={17}/></button><a href="#how-it-works">Take a look around <span>↓</span></a></div>
         <div className="landing-proof"><span className="landing-proof-icon"><CheckCircle2 size={17}/></span><span>For the big plans and the small things you don't want to forget.</span></div>
       </div>
-
       <div className="landing-visual" aria-label="Illustration of a Rella personal workspace">
         <div className="visual-orbit orbit-one"/><div className="visual-orbit orbit-two"/>
         <div className="visual-note note-top"><span className="note-icon"><Check size={14}/></span><span><strong>It's all in one place</strong><small>Plans, payments and personal notes</small></span></div>
@@ -34,7 +32,6 @@ export default function LandingPage({ onEnter }: { onEnter: () => void }) {
       </div>
       <div className="landing-scroll">A LITTLE MORE HEADSPACE <span>↓</span></div>
     </section>
-
     <section className="landing-manifesto" id="how-it-works">
       <span className="landing-eyebrow">MADE FOR REAL, EVERYDAY LIFE</span>
       <h2>Your life isn't one to-do list.<br/><em>Your space shouldn't be either.</em></h2>
@@ -45,12 +42,8 @@ export default function LandingPage({ onEnter }: { onEnter: () => void }) {
         <article><span>03</span><strong>Come back when you need it</strong><p>Look it up, revisit what you saved or ask Rella to help you find the detail.</p></article>
       </div>
     </section>
-
     <section className="landing-life" id="your-life">
-      <div className="life-photo">
-        <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=1200&q=85" alt="An open notebook and planner on a desk" loading="lazy"/>
-        <div className="life-photo-caption"><span>THE EVERYDAY DETAILS</span><strong>All the things that make up a life.</strong></div>
-      </div>
+      <div className="life-photo"><img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=1200&q=85" alt="An open notebook and planner on a desk" loading="lazy"/><div className="life-photo-caption"><span>THE EVERYDAY DETAILS</span><strong>All the things that make up a life.</strong></div></div>
       <div className="life-copy">
         <span className="landing-eyebrow">ONE SPACE, MANY MOVING PARTS</span>
         <h2>Not everything belongs in the same list.<br/><em>It can still live in the same place.</em></h2>
@@ -63,7 +56,6 @@ export default function LandingPage({ onEnter }: { onEnter: () => void }) {
         </ul>
       </div>
     </section>
-
     <section className="landing-inside">
       <div className="inside-heading"><span className="landing-eyebrow">A CLOSER LOOK</span><h2>Clearer days start with<br/><em>knowing where things are.</em></h2><p>Move between the parts of your life without losing the bigger picture.</p></div>
       <div className="inside-grid">
@@ -73,17 +65,10 @@ export default function LandingPage({ onEnter }: { onEnter: () => void }) {
         <article className="inside-card inside-memory"><div className="inside-icon"><Bookmark size={19}/></div><span>YOUR MEMORY</span><h3>Hold on to the useful details.</h3><p>Save recommendations, names, preferences and those small things you know you'll want to find again.</p><div className="memory-tags"><i>People</i><i>Places</i><i>Notes</i><i>Recommendations</i></div></article>
       </div>
     </section>
-
     <section className="landing-ask" id="ask-rella">
-      <div className="ask-copy">
-        <span className="landing-eyebrow">WHEN YOU CAN'T REMEMBER WHERE</span>
-        <h2>Don't dig through everything.<br/><em>Just ask Rella.</em></h2>
-        <p>Somewhere in your notes is the name of that place, the date of that appointment or the recommendation someone made. Ask about what you've saved and get back to the detail you need.</p>
-        <button className="landing-primary" onClick={onEnter}>Meet Rella <ArrowRight size={17}/></button>
-      </div>
+      <div className="ask-copy"><span className="landing-eyebrow">WHEN YOU CAN'T REMEMBER WHERE</span><h2>Don't dig through everything.<br/><em>Just ask Rella.</em></h2><p>Somewhere in your notes is the name of that place, the date of that appointment or the recommendation someone made. Ask about what you've saved and get back to the detail you need.</p><button className="landing-primary" onClick={onEnter}>Meet Rella <ArrowRight size={17}/></button></div>
       <div className="ask-visual" aria-label="Example of asking Rella to find a saved recommendation">
-        <div className="ask-window">
-          <div className="ask-window-head"><span className="ask-avatar">r</span><span><strong>Ask Rella</strong><small>Your personal space</small></span><span className="ask-status"/></div>
+        <div className="ask-window"><div className="ask-window-head"><span className="ask-avatar">r</span><span><strong>Ask Rella</strong><small>Your personal space</small></span><span className="ask-status"/></div>
           <div className="ask-question"><span>YOU</span><p>Where was that pasta place Sam recommended?</p></div>
           <div className="ask-answer"><span>RELLA</span><p>You saved a recommendation from Sam for a little Italian place on King Street. You noted that they recommended trying the pasta.</p><div className="ask-source"><Bookmark size={13}/> From your saved memory</div></div>
           <div className="ask-input">Ask about something you've saved… <span>↑</span></div>
@@ -91,21 +76,12 @@ export default function LandingPage({ onEnter }: { onEnter: () => void }) {
         <div className="ask-decoration"><MessageCircle size={20}/><span>Less searching.<br/><strong>More remembering.</strong></span></div>
       </div>
     </section>
-
     <section className="landing-photo-strip" aria-label="A more organised everyday">
       <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1000&q=85" alt="A laptop and notebook on a bright work desk" loading="lazy"/>
       <div><span className="landing-eyebrow">MAKE SPACE FOR YOUR ATTENTION</span><h2>Keep track of the details.<br/><em>Keep your mind on the moment.</em></h2><p>Rella is here for the things you need to remember, so they don't all have to stay in your head.</p></div>
       <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=85" alt="A calm, light-filled workspace" loading="lazy"/>
     </section>
-
-    <section className="landing-closer">
-      <span className="landing-eyebrow">A LITTLE MORE ROOM FOR YOU</span>
-      <h2>Life has enough tabs open.<br/><em>Let Rella keep track of the details.</em></h2>
-      <p>Bring your plans, responsibilities and important notes into one place.</p>
-      <button className="landing-primary" onClick={onEnter}>Step inside Rella <ArrowRight size={17}/></button>
-      <small>Start with one thing. Add the rest as life happens.</small>
-    </section>
-
+    <section className="landing-closer"><span className="landing-eyebrow">A LITTLE MORE ROOM FOR YOU</span><h2>Life has enough tabs open.<br/><em>Let Rella keep track of the details.</em></h2><p>Bring your plans, responsibilities and important notes into one place.</p><button className="landing-primary" onClick={onEnter}>Step inside Rella <ArrowRight size={17}/></button><small>Start with one thing. Add the rest as life happens.</small></section>
     <footer className="landing-footer"><a className="landing-brand" href="#top"><span className="landing-mark">r</span> rella</a><div className="footer-links"><a href="#how-it-works">How it works</a><a href="#your-life">What you can keep</a><a href="#ask-rella">Ask Rella</a><button onClick={onEnter}>Open your space</button></div><span>© 2026 Rella</span></footer>
   </main>
 }
