@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import LandingPage from './components/LandingPage'
 import { Plus, X, Download, RotateCcw, CreditCard, CalendarDays, Clock3 } from 'lucide-react'
 import Sidebar from './components/Sidebar'
 import Topbar from './components/Topbar'
@@ -13,7 +14,8 @@ const subtitles: Record<ViewId, string> = {
 }
 
 export default function App() {
-  const [activeView, setActiveView] = useState<ViewId>('overview')
+  const [activeView, setActiveView] = useState<ViewId>('tasks')
+  const [showApp, setShowApp] = useState(false)
   const store = useRellaStore()
   const [modalOpen, setModalOpen] = useState(false)
   const [newItem, setNewItem] = useState('')
@@ -38,6 +40,8 @@ export default function App() {
     notify(isTaskView ? 'Task added' : activeView === 'memory' ? 'Memory saved' : 'Saved to your inbox')
   }
   const activeTitle = activeView === 'overview' ? 'Good evening' : ({ calendar: 'Calendar', tasks: 'Tasks', bills: 'Bills & subscriptions', memory: 'My Memory', inbox: 'Inbox', assistant: 'Ask Rella' } as Record<ViewId, string>)[activeView]
+
+  if (!showApp) return <LandingPage onEnter={() => setShowApp(true)} />
 
   return <div className="app-shell"><Sidebar activeView={activeView} onNavigate={setActiveView} onAdd={() => setModalOpen(true)} onSettings={() => setSettingsOpen(true)} inboxCount={store.inbox.filter(item => item.status === "Unsorted").length} /><main className="main-area"><Topbar title={activeTitle} subtitle={subtitles[activeView]} onSearch={() => setSearchOpen(true)} onNotifications={() => setNotificationsOpen(true)} /><div className="page-content">{activeView === 'overview' ? <Overview tasks={store.tasks} reminders={store.reminders} memories={store.memories} events={store.events} bills={store.bills} onToggleTask={store.toggleTask} onAddTask={() => { setActiveView('tasks'); setModalOpen(true) }} onCapture={value => { store.capture(value); notify('Added to your inbox') }} onNavigate={setActiveView} /> : <SectionView view={activeView} tasks={store.tasks} memories={store.memories} capturedItems={store.inbox} events={store.events} bills={store.bills} onToggleTask={store.toggleTask} onToggleBillPaid={store.toggleBillPaid} onProcessInbox={store.processInbox} onAdd={() => setModalOpen(true)} onCapture={value => { store.capture(value); notify('Added to your inbox') }} onAddEvent={store.addEvent} onAddBill={store.addBill} onAddMemory={store.addMemory} onAddTask={store.addTask} onUpdateTask={store.updateTask} onRemoveTask={store.removeTask} onUpdateMemory={store.updateMemory} onRemoveMemory={store.removeMemory} onUpdateEvent={store.updateEvent} onRemoveEvent={store.removeEvent} onUpdateBill={store.updateBill} onRemoveBill={store.removeBill} onRestoreInbox={store.restoreInbox} onRemoveInbox={store.removeInbox} />}</div></main>
     {modalOpen && <div className="modal-backdrop" onMouseDown={e => { if (e.target === e.currentTarget) setModalOpen(false) }}><form className="add-modal" onSubmit={e => { e.preventDefault(); saveQuickItem() }}><div className="modal-heading"><div><span className="section-kicker">QUICK ADD</span><h2>{isTaskView ? 'Add a task' : activeView === 'memory' ? 'Save a memory' : 'Capture something'}</h2></div><button type="button" className="subtle-icon" onClick={() => setModalOpen(false)} aria-label="Close"><X size={19} /></button></div><label htmlFor="new-item">{isTaskView ? 'What needs to get done?' : 'What would you like to keep?'}</label><input id="new-item" autoFocus value={newItem} onChange={e => setNewItem(e.target.value)} placeholder={isTaskView ? 'e.g. Send the proposal by Friday' : 'Write a detail, date or commitment...'} /><p className="modal-hint">{isTaskView ? 'This task will appear in your task list.' : activeView === 'memory' ? 'Save this directly to My Memory.' : 'You can organise this from your Inbox.'}</p><div className="modal-actions"><button type="button" className="secondary-button" onClick={() => setModalOpen(false)}>Cancel</button><button type="submit" className="primary-button" disabled={!newItem.trim()}><Plus size={16} /> {isTaskView ? 'Add task' : activeView === 'memory' ? 'Save memory' : 'Save to inbox'}</button></div></form></div>}
