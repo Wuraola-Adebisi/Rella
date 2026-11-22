@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://rella-ruby.vercel.app/sitemap.xml
